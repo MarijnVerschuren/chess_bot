@@ -1,5 +1,5 @@
 from rich import print
-
+from chess import hello
 
 b = 7
 chars = [
@@ -29,3 +29,4 @@ if __name__ == "__main__":
 
 		print(f"{'[r]' if s else ''}{chars[p + 7 * s]} {'[/]' if s else ''}", end="")
 	print()
+	hello()
