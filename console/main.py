@@ -1,14 +1,15 @@
-from rich import print
+import curses
+import time
+from curses import wrapper
+from time import sleep
+
 from chess import hello
+
 
 b = 7
 chars = [
 	" ", "♝", "♚", "♞", "♟", "♛", "♜",
-	" ", "♗", "♔", "♘", "♙", "♕", "♖",
-	" ", "♝", "♚", "♞", "♟", "♛", "♜"	# for inversion
 ]
-
-
 
 board = [
 	6, 3, 1, 5, 2, 1, 3, 6,
@@ -21,12 +22,41 @@ board = [
 	b+6, b+3, b+1, b+5, b+2, b+1, b+3, b+6,
 ]
 
+def main(stdscr):
+	curses.curs_set(0)
 
-if __name__ == "__main__":
+	curses.init_pair(1, 0xfa, curses.COLOR_BLACK)
+	curses.init_pair(2, 0xfa, curses.COLOR_WHITE)
+	curses.init_pair(3, 0xe8, curses.COLOR_BLACK)
+	curses.init_pair(4, 0xe8, curses.COLOR_WHITE)
+
+	stdscr.clear()
+
+	for y in range(8):
+		for x in range(8):
+			stdscr.addstr(y, x * 2, "  ", curses.color_pair(1 + ((x + y) % 2)))
+
 	for i, p in enumerate(board):
-		if i and i % 8 == 0: print()
-		s = (i + i // 8) % 2
+		y = i // 8
+		x = i % 8
+		stdscr.addch(y, x * 2, chars[p % 7], curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)))
 
-		print(f"{'[r]' if s else ''}{chars[p + 7 * s]} {'[/]' if s else ''}", end="")
-	print()
-	hello()
+	stdscr.refresh()
+	x, y = 0, 0
+	while True:
+		stdscr.refresh()
+		key = stdscr.getkey()
+
+		p = board[x + 8 * y]
+		stdscr.addstr(y, x * 2, f"{chars[p % 7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)))
+
+		if key == "KEY_LEFT":	x = (x - 1) % 8
+		if key == "KEY_RIGHT":	x = (x + 1) % 8
+		if key == "KEY_UP":		y = (y - 1) % 8
+		if key == "KEY_DOWN":	y = (y + 1) % 8
+
+		p = board[x + 8 * y]
+		stdscr.addstr(y, x * 2, f"{chars[p % 7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)) | curses.A_REVERSE)
+
+
+wrapper(main)
