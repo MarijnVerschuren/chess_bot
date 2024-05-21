@@ -1,5 +1,0 @@
-cmake-build-debug/
-.idea/
-
-lib/*.so
-dep/pybind11/
