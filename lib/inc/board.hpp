@@ -9,6 +9,7 @@
 
 
 typedef enum {
+	NONE =		0b000U,
 	PAWN =		0b001U,
 	KNIGHT =	0b010U,
 	BISHOP =	0b011U,

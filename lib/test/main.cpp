@@ -12,17 +12,19 @@ int main() {
 	for (uint8_t y = 0; y < 8; y++) {
 		for (uint8_t x = 0; x < 8; x++) {
 			uint8_t p = board[x, y];
-			if (p & WHITE)	{ printf("WHITE "); }
-			else			{ printf("BLACK "); }
+			if (!p) { continue; }
+			if (p & WHITE)	{ printf("W"); }
+			else			{ printf("B"); }
 			switch (p & 0b111) {
-			case PAWN:		printf("PAWN\n");	break;
-			case KNIGHT:	printf("KNIGHT\n");	break;
-			case BISHOP:	printf("BISHOP\n");	break;
-			case ROOK:		printf("ROOK\n");	break;
-			case QUEEN:		printf("QUEEN\n");	break;
-			case KING:		printf("KING\n");	break;
+			case PAWN:		printf("P ");	break;
+			case KNIGHT:	printf("K ");	break;
+			case BISHOP:	printf("B ");	break;
+			case ROOK:		printf("R ");	break;
+			case QUEEN:		printf("Q ");	break;
+			case KING:		printf("K ");	break;
 			}
 		}
+		printf("\n");
 	}
 
 
