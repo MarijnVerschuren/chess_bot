@@ -8,6 +8,7 @@
 #include <stdint.h>
 
 
+
 typedef enum {
 	NONE =		0b000U,
 	PAWN =		0b001U,
@@ -32,7 +33,7 @@ public:
 	uint8_t operator[](uint8_t x, uint8_t y);
 
 private:
-	uint8_t board[32];
+	uint32_t board[8];
 };
 
 

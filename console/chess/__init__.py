@@ -1,6 +1,9 @@
-from .chess import hello
+from .chess import Chess_Piece, Chess_Color, Board
 
 
 __all__ = [
-	"hello"
+	# board.hpp
+	"Chess_Piece",
+	"Chess_Color",
+	"Board"
 ]

@@ -3,24 +3,15 @@ import time
 from curses import wrapper
 from time import sleep
 
-from chess import hello
+from chess import *
 
 
-b = 7
 chars = [
-	" ", "♝", "♚", "♞", "♟", "♛", "♜",
+	" ", "♟", "♞", "♝", "♜", "♛", "♚"
 ]
 
-board = [
-	6, 3, 1, 5, 2, 1, 3, 6,
-	4, 4, 4, 4, 4, 4, 4, 4,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	b+4, b+4, b+4, b+4, b+4, b+4, b+4, b+4,
-	b+6, b+3, b+1, b+5, b+2, b+1, b+3, b+6,
-]
+board = Board()
+
 
 def main(stdscr):
 	curses.curs_set(0)
@@ -34,12 +25,8 @@ def main(stdscr):
 
 	for y in range(8):
 		for x in range(8):
-			stdscr.addstr(y, x * 2, "  ", curses.color_pair(1 + ((x + y) % 2)))
-
-	for i, p in enumerate(board):
-		y = i // 8
-		x = i % 8
-		stdscr.addch(y, x * 2, chars[p % 7], curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)))
+			p = board[x, y]
+			stdscr.addstr(y, x * 2, f"{chars[p & 0x7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p >> 3)))
 
 	stdscr.refresh()
 	x, y = 0, 0
@@ -48,8 +35,8 @@ def main(stdscr):
 		stdscr.refresh()
 		key = stdscr.getkey()
 
-		p = board[x + 8 * y]
-		stdscr.addstr(y, x * 2, f"{chars[p % 7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)))
+		p = board[x, y]
+		stdscr.addstr(y, x * 2, f"{chars[p & 0x7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p >> 3)))
 
 		if key == "KEY_LEFT":	x = (x - 1) % 8
 		if key == "KEY_RIGHT":	x = (x + 1) % 8
@@ -57,9 +44,8 @@ def main(stdscr):
 		if key == "KEY_DOWN":	y = (y + 1) % 8
 		if key == "Q":			run = False
 
-		p = board[x + 8 * y]
-		stdscr.addstr(y, x * 2, f"{chars[p % 7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)) | curses.A_REVERSE)
+		p = board[x, y]
+		stdscr.addstr(y, x * 2, f"{chars[p & 0x7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p >> 3)) | curses.A_REVERSE)
 	curses.endwin()
-
 
 wrapper(main)
