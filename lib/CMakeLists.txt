@@ -12,8 +12,10 @@ set(PROJECT_TEST_DIR "test")
 set(PROJECT_PY_BIND_DIR "src/py_bind")
 
 set(SOURCE_FILES
-    ${PROJECT_INCLUDE_DIR}/library.hpp
-    ${PROJECT_SOURCE_DIR}/library.cpp
+    ${PROJECT_INCLUDE_DIR}/chess.hpp
+    ${PROJECT_SOURCE_DIR}/chess.cpp
+    ${PROJECT_INCLUDE_DIR}/board.hpp
+    ${PROJECT_SOURCE_DIR}/board.cpp
 )
 
 # chess_py

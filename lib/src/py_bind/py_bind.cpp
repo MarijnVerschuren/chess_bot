@@ -3,12 +3,15 @@
 //
 #include <pybind11/pybind11.h>
 
-#include "library.hpp"
+#include "board.hpp"
+#include "chess.hpp"
 
+
+namespace py = pybind11;
 
 
 PYBIND11_MODULE(chess, handle) {
 	handle.doc() = "chess library";
 
-	handle.def("hello", hello);
+
 }

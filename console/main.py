@@ -43,7 +43,8 @@ def main(stdscr):
 
 	stdscr.refresh()
 	x, y = 0, 0
-	while True:
+	run = True
+	while run:
 		stdscr.refresh()
 		key = stdscr.getkey()
 
@@ -54,9 +55,11 @@ def main(stdscr):
 		if key == "KEY_RIGHT":	x = (x + 1) % 8
 		if key == "KEY_UP":		y = (y - 1) % 8
 		if key == "KEY_DOWN":	y = (y + 1) % 8
+		if key == "Q":			run = False
 
 		p = board[x + 8 * y]
 		stdscr.addstr(y, x * 2, f"{chars[p % 7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p > 7)) | curses.A_REVERSE)
+	curses.endwin()
 
 
 wrapper(main)
