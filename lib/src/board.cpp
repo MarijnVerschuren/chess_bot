@@ -26,7 +26,7 @@ Board::Board() {
 		((PAWN | WHITE) << 0x10)	| ((PAWN | WHITE) << 0x14)		|
 		((PAWN | WHITE) << 0x18)	| ((PAWN | WHITE) << 0x1C)
 	);
-	this->board[7] = (   // ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜
+	this->board[7] = (  // ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜
 		((ROOK | WHITE) << 0x00)	| ((KNIGHT | WHITE) << 0x04)	|
 		((BISHOP | WHITE) << 0x08)	| ((QUEEN | WHITE) << 0x0C)		|
 		((KING | WHITE) << 0x10)	| ((BISHOP | WHITE) << 0x14)	|
@@ -42,5 +42,16 @@ Board::Board(Board& other) {
 }
 
 uint8_t Board::operator[](uint8_t x, uint8_t y) {
-	return (this->board[y] >> (4 * x)) & 0xF;
+	return (this->board[y] >> (x << 2)) & 0xF;
 }
+
+//uint8_t Board::move(uint8_t x, uint8_t y, uint8_t nx, uint8_t ny) {
+//	x <<= 2; nx <<= 2;
+//	uint8_t p = (this->board[y] >> x) & 0xF;
+//	if (!p) { return -1; }		// no piece
+//	this->board[y] &= ~(0xF << x);
+//	if (this->board[ny] & (0xF << nx)) { return -2; }	// destination populated
+//	this->board[ny] &= ~(0xF << nx);
+//	this->board[ny] |= (p << nx);
+//	return 0;
+//}

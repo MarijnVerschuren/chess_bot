@@ -5,36 +5,24 @@
 #ifndef CHESS_BOARD_HPP
 #define CHESS_BOARD_HPP
 
-#include <stdint.h>
-
-
-
-typedef enum {
-	NONE =		0b000U,
-	PAWN =		0b001U,
-	KNIGHT =	0b010U,
-	BISHOP =	0b011U,
-	ROOK =		0b100U,
-	QUEEN =		0b101U,
-	KING =		0b110U
-} Chess_Piece;
-
-typedef enum {
-	BLACK =		0b0000U,
-	WHITE =		0b1000U
-} Chess_Color;
+#include "move.hpp"
 
 
 class Board {
 public:
 	Board();
 	Board(Board& other);
+	// TODO: from standard string (UCI)
 
 	uint8_t operator[](uint8_t x, uint8_t y);
 
-private:
+	//uint8_t move(uint8_t x, uint8_t y, uint8_t nx, uint8_t ny);
+	// TODO: other move formats? (UCI)
+
+protected:
 	uint32_t board[8];
 };
+
 
 
 #endif //CHESS_BOARD_HPP

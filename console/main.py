@@ -29,6 +29,9 @@ def main(stdscr):
 			stdscr.addstr(y, x * 2, f"{chars[p & 0x7]} ", curses.color_pair(1 + ((x + y) % 2) + 2 * (p >> 3)))
 
 	stdscr.refresh()
+
+	#stdscr.nodelay(True)
+
 	x, y = 0, 0
 	run = True
 	while run:

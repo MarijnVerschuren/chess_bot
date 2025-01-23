@@ -40,5 +40,4 @@ PYBIND11_MODULE(chess, handle) {
 	board.def("__getitem__", [](Board* self, std::tuple<uint8_t, uint8_t> pos) {
 		return self->operator[](std::get<0>(pos), std::get<1>(pos));
 	});
-
 }
