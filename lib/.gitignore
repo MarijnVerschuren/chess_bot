@@ -1,6 +1,0 @@
-build/
-.idea/
-
-bin/*.so
-dep/pybind11/
-CMakeFiles/
