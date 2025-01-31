@@ -1,3 +1,0 @@
-/home/marijn/Github/chess_bot/cmake-build-debug/CMakeFiles/chess_bot.dir
-/home/marijn/Github/chess_bot/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/marijn/Github/chess_bot/cmake-build-debug/CMakeFiles/rebuild_cache.dir
