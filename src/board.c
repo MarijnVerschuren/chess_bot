@@ -70,6 +70,46 @@ inline uint64_t pbb_occupancy(piece_bit_board_t* pbb, uint8_t color) {
 }
 
 
+// TODO: move \/
+const uint8_t bit_table[64] = {
+	63, 30,  3, 32, 25, 41, 22, 33,
+	15, 50, 42, 13, 11, 53, 19, 34,
+	61, 29,  2,	51, 21, 43, 45, 10,
+	18, 47,  1, 54,  9, 57,  0, 35,
+	62, 31, 40,  4, 49,  5, 52,	26,
+	60,  6, 23, 44, 46, 27, 56, 16,
+	 7, 39, 48, 24, 59, 14, 12, 55,
+	38, 28, 58, 20, 37, 17, 36,  8
+};
+
+uint8_t pop_bit(uint64_t *bb) {
+	uint64_t b = *bb ^ (*bb - 1);
+	uint32_t fold = ((b & 0xFFFFFFFFUL) ^ (b >> 32));
+	*bb &= (*bb - 1);
+	return bit_table[(fold * 0x783A9B23) >> 26];
+}
+// TODO: move ^
+
+
+uint64_t bishop_move_occupancy(uint64_t bb, const uint64_t occ) {
+	uint64_t result = 0; for (;bb;) {
+		result |= index_magic_bishop(pop_bit(&bb), occ);
+	} return result;
+}
+
+uint64_t rook_move_occupancy(uint64_t bb, const uint64_t occ) {
+	uint64_t result = 0; for (;bb;) {
+		result |= index_magic_rook(pop_bit(&bb), occ);
+	} return result;
+}
+
+uint64_t queen_move_occupancy(uint64_t bb, const uint64_t occ) {
+	uint64_t result = 0; for (;bb;) {
+		result |= index_magic_queen(pop_bit(&bb), occ);
+	} return result;
+}
+
+
 uint64_t pbb_move_occupancy(piece_bit_board_t* pbb, piece_bit_board_t* pmbb, uint8_t is_first_move) {
 	uint64_t pbbb = pbb_occupancy(pbb, BLACK), pbbw = pbb_occupancy(pbb, WHITE);
 	// PAWNs
@@ -102,9 +142,16 @@ uint64_t pbb_move_occupancy(piece_bit_board_t* pbb, piece_bit_board_t* pmbb, uin
 		((pbb->board[WHITE | KNIGHT] & ~FILE_H) >> 15)				|
 		((pbb->board[WHITE | KNIGHT] & ~FILE_H) << 17)
 	) & ~pbbw;
-	// BISHOPs TODO
-	// ROOKs TODO
-	// QUEENs TODO
+	// BISHOPs
+	uint64_t obb = pbbb | pbbw;
+	pmbb->board[BLACK | BISHOP] = bishop_move_occupancy(pbb->board[BLACK | BISHOP], obb) & ~pbbb;
+	pmbb->board[WHITE | BISHOP] = bishop_move_occupancy(pbb->board[WHITE | BISHOP], obb) & ~pbbw;
+	// ROOKs
+	pmbb->board[BLACK | ROOK] = rook_move_occupancy(pbb->board[BLACK | ROOK], obb) & ~pbbb;
+	pmbb->board[WHITE | ROOK] = rook_move_occupancy(pbb->board[WHITE | ROOK], obb) & ~pbbw;
+	// QUEENs
+	pmbb->board[BLACK | QUEEN] = queen_move_occupancy(pbb->board[BLACK | QUEEN], obb) & ~pbbb;
+	pmbb->board[WHITE | QUEEN] = queen_move_occupancy(pbb->board[WHITE | QUEEN], obb) & ~pbbw;
 	// KINGs
 	pmbb->board[BLACK | KING] = king_moves[CTZ(pbb->board[BLACK | KING])] & ~pbbb;
 	pmbb->board[WHITE | KING] = king_moves[CTZ(pbb->board[WHITE | KING])] & ~pbbw;

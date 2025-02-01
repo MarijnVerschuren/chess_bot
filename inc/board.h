@@ -5,6 +5,7 @@
 #ifndef CHESS_BOT_BOARD_H
 #define CHESS_BOT_BOARD_H
 #include "piece.h"
+#include "magic.h"
 
 
 typedef struct {

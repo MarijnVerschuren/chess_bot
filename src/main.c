@@ -32,7 +32,38 @@ void wip() {
 	piece_bit_board_t pbb;
 	piece_bit_board_t mbb;
 
-	init_board(&board);
+	//init_board(&board);
+
+	// custom setup!
+	board.rows[0] = (
+		((WHITE | ROOK) << 12) | ((WHITE | ROOK) << 16) | ((WHITE | KING) << 24)
+	);
+	board.rows[1] = (
+		((WHITE | PAWN) << 0) | ((WHITE | PAWN) << 4) | ((WHITE | PAWN) << 8) |
+		((WHITE | QUEEN) << 16) | ((WHITE | PAWN) << 20) | ((WHITE | PAWN) << 24) |
+		((WHITE | PAWN) << 28)
+	);
+	board.rows[2] = (
+		((WHITE | KNIGHT) << 8)	| ((WHITE | KNIGHT) << 20)
+	);
+	board.rows[3] = (
+		((WHITE | BISHOP) << 8) | ((WHITE | PAWN) << 12) | ((WHITE | PAWN) << 16) | ((WHITE | BISHOP) << 20)
+	);
+	board.rows[4] = 0x00000000UL; board.rows[5] = 0x00000000UL;
+	board.rows[6] = (
+		((PAWN | BLACK) << 0x00)	| ((PAWN | BLACK) << 0x04)		|
+		((PAWN | BLACK) << 0x08)	| ((PAWN | BLACK) << 0x0C)		|
+		((PAWN | BLACK) << 0x10)	| ((PAWN | BLACK) << 0x14)		|
+		((PAWN | BLACK) << 0x18)	| ((PAWN | BLACK) << 0x1C)
+	);
+	board.rows[7] = (
+		((ROOK | BLACK) << 0x00)	| ((KNIGHT | BLACK) << 0x04)	|
+		((BISHOP | BLACK) << 0x08)	| ((QUEEN | BLACK) << 0x0C)		|
+		((KING | BLACK) << 0x10)	| ((BISHOP | BLACK) << 0x14)	|
+		((KNIGHT | BLACK) << 0x18)	| ((ROOK | BLACK) << 0x1C)
+	);
+
+
 	printf("occupancy:\n");
 	print_bb(calculate_pbb(&board, &pbb));
 	pbb_move_occupancy(&pbb, &mbb, 1);

@@ -7,6 +7,12 @@
 #include "types.h"
 
 
+// move blocker masks
+extern const uint64_t rook_blocker_mask[64];
+extern const uint64_t bishop_blocker_mask[64];
+// magic bit counts
+extern const uint8_t rook_bits[64];
+extern const uint8_t bishop_bits[64];
 // magic numbers
 extern const uint64_t rook_magics[64];
 extern const uint64_t bishop_magics[64];
