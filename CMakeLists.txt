@@ -8,4 +8,8 @@ add_executable(
     chess_bot
     src/main.c
     src/board.c
+        src/piece.c
+        src/magic_const.c
+        inc/magic.h
+        src/magic.c
 )

@@ -124,7 +124,6 @@ uint64_t calculate_pbb(board_t* board, piece_bit_board_t* pbb) {
 			pbb->board[(tmp >> x) & 0xFU] |= mask << (x >> 2);
 		}
 	}
-
 	// TODO: needed?
 	return pbb_occupancy(pbb, BLACK) | pbb_occupancy(pbb, WHITE);
 }
