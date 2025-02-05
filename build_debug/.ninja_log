@@ -1,0 +1,9 @@
+# ninja log v5
+0	15	1738757061985090819	CMakeFiles/chess_bot.dir/src/piece.c.o	27ae3c09e7fd760
+1	27	1738757061995089345	CMakeFiles/chess_bot.dir/src/magic.c.o	1fdade93a1271dc1
+1	31	1738757061998422187	CMakeFiles/chess_bot.dir/src/tree.c.o	deeaa39739ce38d7
+0	38	1738757062005087870	CMakeFiles/chess_bot.dir/src/main.c.o	fd0c719966209c23
+1	47	1738757062015086390	CMakeFiles/chess_bot.dir/src/vector.c.o	6bd8d51515415300
+0	54	1738757062021752071	CMakeFiles/chess_bot.dir/src/board.c.o	5f4a0eed29de2eb7
+0	203	1738757062171729877	CMakeFiles/chess_bot.dir/src/magic_const.c.o	ff91eddb7b106c22
+203	219	1738757062185061238	chess_bot	bcf092fcae9a0ef8

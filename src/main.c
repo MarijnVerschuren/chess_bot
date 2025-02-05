@@ -3,6 +3,7 @@
 #include <unistd.h>
 
 #include "board.h"
+#include "vector.h"
 
 
 
@@ -64,17 +65,17 @@ void wip() {
 	);
 
 
-	printf("occupancy:\n");
-	print_bb(calculate_pbb(&board, &pbb));
-	pbb_move_occupancy(&pbb, &mbb, 1);
-	for (uint8_t i = 0; i < 16; i++) {
-		if (!(i & 0x7U) || (i & 0x7U) == 0x7U) { continue; }
-		printf("piece: %s(s):\n", piece_names[i]);
-		printf("positions (%d):\n", CTZ(pbb.board[i]));
-		print_bb(pbb.board[i]);
-		printf("moves:\n");
-		print_bb(mbb.board[i]);
-	}
+
+	//printf("occupancy:\n");
+	//pbb_move_occupancy(&pbb, &mbb, 1);
+	//for (uint8_t i = 0; i < 16; i++) {
+	//	if (!(i & 0x7U) || (i & 0x7U) == 0x7U) { continue; }
+	//	printf("piece: %s(s):\n", piece_names[i]);
+	//	printf("positions (%d):\n", CTZ(pbb.board[i]));
+	//	print_bb(pbb.board[i]);
+	//	printf("moves:\n");
+	//	print_bb(mbb.board[i]);
+	//}
 }
 
 

@@ -20,4 +20,5 @@ typedef unsigned long long	bit_board_t;
 
 #define CTZ(x) __builtin_ctzll(x)
 
+
 #endif //CHESS_BOT_TYPES_H

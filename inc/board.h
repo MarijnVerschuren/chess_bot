@@ -6,6 +6,8 @@
 #define CHESS_BOT_BOARD_H
 #include "piece.h"
 #include "magic.h"
+#include "tree.h"
+#include "move.h"
 
 
 typedef struct {
@@ -37,13 +39,13 @@ void init_board(board_t* board);
  * piece bit board (pbb)
  * */
 void reset_pbb(piece_bit_board_t* pbb);
-// returns the bit board occupancy (all pieces of a certain color)
-bit_board_t pbb_occupancy(piece_bit_board_t* pbb, uint8_t color);
 // returns the full move bit board and stores the piece move bit boards in pmbb
-bit_board_t pbb_move_occupancy(piece_bit_board_t* pbb, piece_bit_board_t* pmbb, uint8_t is_first_move);
+void calculate_pbb(board_t* board, piece_bit_board_t* pbb);
 
-bit_board_t calculate_pbb(board_t* board, piece_bit_board_t* pbb);
+void generate_moves(tree_t* tree, board_t* board, uint8_t is_first_move);
 
+
+//void pbb_move_occupancy(piece_bit_board_t* pbb, piece_bit_board_t* pmbb, uint8_t is_first_move);
 
 
 #endif //CHESS_BOT_BOARD_H
