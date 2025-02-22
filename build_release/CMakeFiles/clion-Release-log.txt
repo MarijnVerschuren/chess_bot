@@ -1,4 +1,4 @@
-/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -DPython_EXECUTABLE=/usr/local/bin/python3.10 -DPython3_EXECUTABLE=/usr/local/bin/python3.10 -S /home/marijn/Github/chess_bot -B /home/marijn/Github/chess_bot/build_debug
+/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -DPython_EXECUTABLE=/usr/local/bin/python3.10 -DPython3_EXECUTABLE=/usr/local/bin/python3.10 -S /home/marijn/Github/chess_bot -B /home/marijn/Github/chess_bot/build_release
 -- The C compiler identification is GNU 14.2.1
 -- The CXX compiler identification is GNU 14.2.1
 -- Detecting C compiler ABI info
@@ -20,4 +20,4 @@ CMake Warning:
     Python_EXECUTABLE
 
 
--- Build files have been written to: /home/marijn/Github/chess_bot/build_debug
+-- Build files have been written to: /home/marijn/Github/chess_bot/build_release
