@@ -23,11 +23,11 @@ typedef enum : uint8_t {
 	BLK =		0b1000U		// black
 } piece_t;
 
-typedef enum : uint8_t {
+enum color_t : uint8_t {
 	WHITE =		0b0U,
 	BLACK =		0b1U,
-	COLOR_C =	0b10U,
-} color_t;
+	COL_CNT =	0b10U,
+};
 
 
 constexpr color_t operator!(color_t color)	{ return (color_t)(color ^ 0b1U); }

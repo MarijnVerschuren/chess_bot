@@ -5,7 +5,7 @@
 
 
 
-Move::Move(uint8_t src, uint8_t dst, move_t type, piece_t piece) {
+Move::Move(sq_t src, sq_t dst, move_t type, piece_t piece) {
 	data = (
 		((src & 0x3FU)				<< 0U)	|
 		((dst & 0x3FU)				<< 6U)	|
@@ -19,8 +19,8 @@ Move::Move(uint16_t move_data) {
 }
 
 uint16_t	Move::raw(void)						const	{ return this->data; }
-uint8_t		Move::src(void)						const	{ return ((this->data >> 0U) & 0x3FU); }
-uint8_t		Move::dst(void)						const	{ return ((this->data >> 6U) & 0x3FU); }
+sq_t		Move::src(void)						const	{ return (this->data >> 0U) & 0x3FU; }
+sq_t		Move::dst(void)						const	{ return (this->data >> 6U) & 0x3FU; }
 piece_t		Move::piece(void)					const	{ return (piece_t)(((this->data >> 12U) & 0x3U) + KNIGHT); }
 move_t		Move::type(void)					const	{ return (move_t)((this->data >> 14U) & 0x3U); }
 
@@ -34,7 +34,7 @@ bool 		Move::operator!=(const Move& move)	const	{ return this->data != move.data
 
 
 // move tables
-const bit_board_t pawn_attacks[2][64] = {
+const bit_board_t pawn_attacks[COL_CNT][SQ_CNT] = {
 	{
 		0x0000000000000000ULL,
 		0x0000000000000000ULL,
@@ -168,7 +168,7 @@ const bit_board_t pawn_attacks[2][64] = {
 	}
 };
 
-const bit_board_t knight_attacks[64] = {
+const bit_board_t knight_attacks[SQ_CNT] = {
 	0x0000000000020400ULL,
 	0x0000000000050800ULL,
 	0x00000000000A1100ULL,
@@ -235,7 +235,7 @@ const bit_board_t knight_attacks[64] = {
 	0x0020400000000000ULL
 };
 
-const bit_board_t pseudo_bishop_attacks[64] = {
+const bit_board_t pseudo_bishop_attacks[SQ_CNT] = {
 	0x8040201008040200ULL,
 	0x0080402010080500ULL,
 	0x0000804020110A00ULL,
@@ -302,7 +302,7 @@ const bit_board_t pseudo_bishop_attacks[64] = {
 	0x0040201008040201ULL
 };
 
-const bit_board_t pseudo_rook_attacks[64] = {
+const bit_board_t pseudo_rook_attacks[SQ_CNT] = {
 	0x01010101010101FEULL,
 	0x02020202020202FDULL,
 	0x04040404040404FBULL,
@@ -369,7 +369,7 @@ const bit_board_t pseudo_rook_attacks[64] = {
 	0x7F80808080808080ULL
 };
 
-const bit_board_t king_attacks[64] = {
+const bit_board_t king_attacks[SQ_CNT] = {
 	0x0000000000000302ULL,
 	0x0000000000000705ULL,
 	0x0000000000000E0AULL,

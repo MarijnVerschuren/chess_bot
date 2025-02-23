@@ -6,30 +6,30 @@
 
 
 
-uint64_t index_magic_rook(uint8_t sq, uint64_t bb) {
+bit_board_t index_magic_rook(sq_t sq, bit_board_t bb) {
 	bb &= rook_blocker_mask[sq];
 	return magic_rook_moves[
 		rook_table_offset[sq] +\
-		((rook_magics[sq] * bb) >> (64 - rook_bits[sq]))
+		((rook_magics[sq] * bb) >> (SQ_CNT - rook_bits[sq]))
 	];
 }
 
-uint64_t index_magic_bishop(uint8_t sq, uint64_t bb) {
+bit_board_t index_magic_bishop(sq_t sq, bit_board_t bb) {
 	bb &= bishop_blocker_mask[sq];
 	return magic_bishop_moves[
 		bishop_table_offset[sq] +\
-		((bishop_magics[sq] * bb) >> (64 - bishop_bits[sq]))
+		((bishop_magics[sq] * bb) >> (SQ_CNT - bishop_bits[sq]))
 	];
 }
 
-uint64_t index_magic_queen(uint8_t sq, uint64_t bb) {
-	uint64_t rbb = bb & rook_blocker_mask[sq];
-	uint64_t bbb = bb & bishop_blocker_mask[sq];
+bit_board_t index_magic_queen(sq_t sq, bit_board_t bb) {
+	bit_board_t rbb = bb & rook_blocker_mask[sq];
+	bit_board_t bbb = bb & bishop_blocker_mask[sq];
 	return magic_rook_moves[
 		rook_table_offset[sq] +\
-		((rook_magics[sq] * rbb) >> (64 - rook_bits[sq]))
+		((rook_magics[sq] * rbb) >> (SQ_CNT - rook_bits[sq]))
 	] | magic_bishop_moves[
 		bishop_table_offset[sq] +\
-		((bishop_magics[sq] * bbb) >> (64 - bishop_bits[sq]))
+		((bishop_magics[sq] * bbb) >> (SQ_CNT - bishop_bits[sq]))
 	];
 }

@@ -5,15 +5,16 @@
 #ifndef CHESS_BOT_MOVE_HPP
 #define CHESS_BOT_MOVE_HPP
 #include "piece.hpp"
+#include "board.hpp"
 
 
 
 // move tables
-extern const bit_board_t pawn_attacks[2][64];
-extern const bit_board_t knight_attacks[64];
-extern const bit_board_t pseudo_bishop_attacks[64];
-extern const bit_board_t pseudo_rook_attacks[64];
-extern const bit_board_t king_attacks[64];
+extern const bit_board_t pawn_attacks[COL_CNT][SQ_CNT];
+extern const bit_board_t knight_attacks[SQ_CNT];
+extern const bit_board_t pseudo_bishop_attacks[SQ_CNT];
+extern const bit_board_t pseudo_rook_attacks[SQ_CNT];
+extern const bit_board_t king_attacks[SQ_CNT];
 
 
 typedef enum {
@@ -32,12 +33,13 @@ typedef enum {
  */
 class Move {
 public:
-	Move(uint8_t src, uint8_t dst, move_t type = MOVE, piece_t piece = KNIGHT);  // promotion piece
+	Move(sq_t src, sq_t dst, move_t type = MOVE, piece_t piece = KNIGHT);  // promotion piece
 	Move(uint16_t move_data);
+	Move() = default;
 
 	_ND	uint16_t	raw(void)			const;
-	_ND	uint8_t		src(void)			const;
-	_ND	uint8_t		dst(void)			const;
+	_ND	sq_t		src(void)			const;
+	_ND	sq_t		dst(void)			const;
 	_ND	piece_t		piece(void)			const;
 	_ND	move_t		type(void)			const;
 

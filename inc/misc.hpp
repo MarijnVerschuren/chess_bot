@@ -8,11 +8,12 @@
 
 
 #define _ND [[nodiscard]]
+#define _MU [[maybe_unused]]
 
 #define CTZ(x) __builtin_ctzll(x)
 // TODO: __builtin_prefetch
 
-
+#define NDEBUG
 #ifdef NDEBUG
 #define assert(EX)
 #else

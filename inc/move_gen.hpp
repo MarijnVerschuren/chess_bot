@@ -6,6 +6,7 @@
 #define CHESS_BOT_MOVE_GEN_HPP
 #include "move.hpp"
 #include "position.hpp"
+#include "magic.hpp"
 
 
 #define MAX_MOVE 256

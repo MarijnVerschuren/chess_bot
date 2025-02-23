@@ -141,12 +141,36 @@ def gen_line_table() -> None:
 			)
 
 
+castle_table: list[int] = []
+def gen_castle_table() -> None:
+	gen_between_table()
+	
+	kfrom =	[4, 4, 4 ^ 56, 4 ^ 56]
+	kto =	[6, 2, 6 ^ 56, 2 ^ 56]
+	rfrom =	[7, 0, 7 ^ 56, 0 ^ 56]
+	rto =	[5, 3, 5 ^ 56, 3 ^ 56]
+	for k, r in zip(zip(kfrom, kto), zip(rfrom, rto)):
+		kf, kt = k
+		rf, rt = r
+		castle_table.append(
+			(between_table[kf][kt] |
+			between_table[rf][rt]) &
+			~((1 << kf) | (1 << rf))
+		)
+		
+
 
 if __name__ == "__main__":
-	gen_line_table()
-	for a in range(64):
-		print(f"LINE{a}")
-		for b in range(64):
-			print(f"{a} -> {b}")
-			print_bb(line_table[a][b])
-	print_table_2D(line_table, 64, True)
+	gen_castle_table()
+	for i in range(4):
+		print_bb(castle_table[i])
+	
+	print_table(castle_table, 64)
+		
+	# gen_line_table()
+	# for a in range(64):
+	# 	print(f"LINE{a}")
+	# 	for b in range(64):
+	# 		print(f"{a} -> {b}")
+	# 		print_bb(line_table[a][b])
+	# print_table_2D(line_table, 64, True)

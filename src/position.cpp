@@ -10,28 +10,26 @@
  */
 static inline void calculate_pbb(Board& board, bit_board_t* bb) {
 	uint32_t tmp; uint8_t tm;
-	uint64_t mask = 0b1;
+	bit_board_t mask = 0b1;
 
 	bb[0] = 0x0000000000000000ULL;	bb[1] = 0x0000000000000000ULL;
 	bb[2] = 0x0000000000000000ULL;	bb[3] = 0x0000000000000000ULL;
 	bb[4] = 0x0000000000000000ULL;	bb[5] = 0x0000000000000000ULL;
-	bb[6] = 0x0000000000000000ULL;
+	bb[6] = 0x0000000000000000ULL;	bb[7] = 0x0000000000000000ULL;
+	bb[8] = 0x0000000000000000ULL;
 
 	for (uint8_t y = 0; y < 8; y++, mask <<= 8) {
 		tmp = board[y];
 		for (uint8_t x = 0; x < 32; x += 4) {
-			tm = (tmp >> x);
+			tm = (tmp >> x) & 0xF;
+			if (!(tm & ALL)) { continue; }
 			bb[tm & ALL] |= mask << (x >> 2);
-			bb[WHT] |= (mask * ((tm & 0b1000) > 0)) << (x >> 2);
+			if (tm & BLK)	{ bb[BLK] |= mask << (x >> 2); }
+			else			{ bb[WHT] |= mask << (x >> 2); }
 		}
 	}
 
-	bb[ALL] = (
-		bb[PAWN]	|	bb[KNIGHT]	|
-		bb[BISHOP]	|	bb[ROOK]	|
-		bb[QUEEN]	|	bb[KING]
-	);
-	bb[BLK] |= bb[ALL] ^ bb[WHT];
+	bb[ALL] = bb[BLK] | bb[WHT];
 }
 
 
@@ -42,9 +40,11 @@ Position::Position(Board& board, color_t stm, uint8_t castle) {
 	this->board = board;
 	calculate_pbb(board, pieces);
 
+	this->en_passant_sq =	0;
 	this->side_to_move =	stm;
-	this->castle_rights =	castle;
+	this->castle_rights =	(castle_t)castle;
 	update_slider_blockers(stm);
+	update_slider_blockers(!stm);
 	uint8_t ksq = CTZ(piece(stm, KING));
 	checkers = attackers_to(ksq) & piece(!stm, ALL);
 }
@@ -168,21 +168,37 @@ color_t Position::side_to_move_g(void) const {
 	return this->side_to_move;
 }
 
+sq_t Position::en_passant_sq_g(void) const {
+	return this->en_passant_sq;
+}
+
 castle_t Position::can_castle(castle_t castle) const {
 	return castle & this->castle_rights;
 }
 
 bool Position::castle_impeded(castle_t castle) const {
-	return false; // TODO
+	return castle_masks[CTZ(castle)] & pieces[ALL];
 }
 
-uint8_t Position::castling_rook_square(castle_t castle) const {
-	return false; // TODO
+sq_t Position::castling_rook_square(castle_t castle) const {
+	return castle_rsq[CTZ(castle)];
+}
+sq_t Position::castling_king_square(castle_t castle) const {
+	return castle_ksq[CTZ(castle)];
 }
 
 
 
-extern const bit_board_t line_bb[64][64] {
+extern const sq_t castle_ksq[CASTLE_CNT] = { 0x06U, 0x02U, 0x3EU, 0x3AU };
+extern const sq_t castle_rsq[CASTLE_CNT] = { 0x05U, 0x03U, 0x3DU, 0x3BU };
+const bit_board_t castle_masks[CASTLE_CNT] = {
+	0x0000000000000060ULL,
+	0x000000000000000EULL,
+	0x6000000000000000ULL,
+	0x0E00000000000000ULL
+};
+
+const bit_board_t line_bb[SQ_CNT][SQ_CNT] {
 	{
 		0x0000000000000000ULL,
 		0x00000000000000FFULL,
@@ -4346,7 +4362,7 @@ extern const bit_board_t line_bb[64][64] {
 	},
 };
 
-const bit_board_t between_bb[64][64] = {
+const bit_board_t between_bb[SQ_CNT][SQ_CNT] = {
 	{
 		0x0000000000000000ULL,
 		0x0000000000000000ULL,
