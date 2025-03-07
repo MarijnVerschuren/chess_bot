@@ -112,6 +112,15 @@ build CMakeFiles/chess_bot.dir/src/position.cpp.o: CXX_COMPILER__chess_bot_unsca
   TARGET_COMPILE_PDB = CMakeFiles/chess_bot.dir/
   TARGET_PDB = chess_bot.pdb
 
+build CMakeFiles/chess_bot.dir/src/search.cpp.o: CXX_COMPILER__chess_bot_unscanned_Debug /home/marijn/Github/chess_bot/src/search.cpp || cmake_object_order_depends_target_chess_bot
+  DEP_FILE = CMakeFiles/chess_bot.dir/src/search.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  INCLUDES = -I/home/marijn/Github/chess_bot/inc
+  OBJECT_DIR = CMakeFiles/chess_bot.dir
+  OBJECT_FILE_DIR = CMakeFiles/chess_bot.dir/src
+  TARGET_COMPILE_PDB = CMakeFiles/chess_bot.dir/
+  TARGET_PDB = chess_bot.pdb
+
 build CMakeFiles/chess_bot.dir/src/move.cpp.o: CXX_COMPILER__chess_bot_unscanned_Debug /home/marijn/Github/chess_bot/src/move.cpp || cmake_object_order_depends_target_chess_bot
   DEP_FILE = CMakeFiles/chess_bot.dir/src/move.cpp.o.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
@@ -129,7 +138,7 @@ build CMakeFiles/chess_bot.dir/src/move.cpp.o: CXX_COMPILER__chess_bot_unscanned
 #############################################
 # Link the executable chess_bot
 
-build chess_bot: CXX_EXECUTABLE_LINKER__chess_bot_Debug CMakeFiles/chess_bot.dir/src/main.cpp.o CMakeFiles/chess_bot.dir/src/board.cpp.o CMakeFiles/chess_bot.dir/src/piece.cpp.o CMakeFiles/chess_bot.dir/src/magic_const.cpp.o CMakeFiles/chess_bot.dir/src/move_gen.cpp.o CMakeFiles/chess_bot.dir/src/magic.cpp.o CMakeFiles/chess_bot.dir/src/position.cpp.o CMakeFiles/chess_bot.dir/src/move.cpp.o
+build chess_bot: CXX_EXECUTABLE_LINKER__chess_bot_Debug CMakeFiles/chess_bot.dir/src/main.cpp.o CMakeFiles/chess_bot.dir/src/board.cpp.o CMakeFiles/chess_bot.dir/src/piece.cpp.o CMakeFiles/chess_bot.dir/src/magic_const.cpp.o CMakeFiles/chess_bot.dir/src/move_gen.cpp.o CMakeFiles/chess_bot.dir/src/magic.cpp.o CMakeFiles/chess_bot.dir/src/position.cpp.o CMakeFiles/chess_bot.dir/src/search.cpp.o CMakeFiles/chess_bot.dir/src/move.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/chess_bot.dir
   POST_BUILD = :

@@ -7,7 +7,7 @@
 
 /*
  * helpers
- */
+ */  // TODO: remove
 static inline void calculate_pbb(Board& board, bit_board_t* bb) {
 	uint32_t tmp; uint8_t tm;
 	bit_board_t mask = 0b1;
@@ -35,7 +35,7 @@ static inline void calculate_pbb(Board& board, bit_board_t* bb) {
 
 /*
  * Position
- */
+ */ // TODO: FEN
 Position::Position(Board& board, color_t stm, uint8_t castle) {
 	this->board = board;
 	calculate_pbb(board, pieces);
@@ -154,7 +154,61 @@ bool Position::legal(const Move move) const {
 
 }
 
+void Position::move(const Move move) {
+	move_t mtype = move.type();
 
+	piece_t pc = piece_on(move.src());
+	piece_t captured = mtype == EN_PASSANT ? mk_piece(!side_to_move, PAWN) : piece_on(move.dst());
+
+	bit_board_t dmask = 0b1ULL << move.dst();
+	bit_board_t smask = 0b1ULL << move.src();
+	bit_board_t mmask = (smask | dmask);
+
+	if (mtype == CASTLE) {
+		bit_board_t cmask =  	(move.dst() < move.src() ? 0x9U : 0xAU) << (side_to_move * 56);
+		pieces[KING] 			^= mmask;
+		pieces[ROOK] 			^= cmask;
+		pieces[pc & COL] 		^= (dmask | cmask);
+		pieces[ALL] 			^= (dmask | cmask);
+		return;
+	}
+
+	if (captured) {
+		if (mtype == EN_PASSANT) {
+			bit_board_t emask = side_to_move == WHITE ? (dmask << 8) : (dmask >> 8);
+			pieces[PAWN] 			^= emask;
+			pieces[captured & COL] 	^= emask;
+			pieces[ALL] 			^= emask;
+		} else {
+			pieces[pc & ALL] 		^= dmask;
+			pieces[pc & COL] 		^= dmask;
+			pieces[ALL] 			^= dmask;
+		}
+	}
+	if (mtype == PROMOTION) {
+		pieces[pc & ALL]			^= smask;
+		pieces[move.piece()]		^= dmask;
+	} else {
+		if (pc == PAWN && (move.dst() - move.src() == 16)) {
+			en_passant_sq = move.dst() - 8;
+		}
+		pieces[pc & ALL]			^= mmask;
+	}
+	pieces[pc & COL]				^= mmask;
+	pieces[ALL]						^= mmask;
+}
+
+
+piece_t Position::piece_on(uint8_t sq) const {
+	bit_board_t bb = 0b1ULL << sq;
+	uint8_t pc = 1;
+	for (; pc < 7; pc++) {
+		if (pieces[pc] & bb) { goto piece_on_ret; }
+	}
+	return NONE;
+	piece_on_ret:
+	return ((piece_t)pc) + (pieces[8] & bb ? BLK : WHT);
+}
 
 bit_board_t Position::king_blockers_g(color_t color) const {
 	return this->king_blockers[color];
@@ -185,6 +239,22 @@ sq_t Position::castling_rook_square(castle_t castle) const {
 }
 sq_t Position::castling_king_square(castle_t castle) const {
 	return castle_ksq[CTZ(castle)];
+}
+
+
+#include <stdio.h>
+void Position::print() const {
+	static const char pchars[7] = { ' ', 'P', 'N', 'B', 'R', 'Q', 'K' };
+	bit_board_t bb = 0b1ULL;
+	uint8_t i, p, blk;
+	for (i = 0; i < 64; i++, bb <<= 1) {
+		if (i && (i % 8) == 0) { printf("\n"); }
+		if (!(bb & pieces[ALL])) { printf("  "); continue; }
+		blk = (pieces[8] & bb) != 0;
+		for (p = PAWN; p < ALL; p++) { if (pieces[p] && bb) { break; } }
+		printf("%c ", pchars[p] + blk * 0x20);
+	}
+	printf("\n\n");
 }
 
 

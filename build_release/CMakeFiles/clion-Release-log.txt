@@ -1,4 +1,4 @@
-/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -DPython_EXECUTABLE=/usr/local/bin/python3.10 -DPython3_EXECUTABLE=/usr/local/bin/python3.10 -S /home/marijn/Github/chess_bot -B /home/marijn/Github/chess_bot/build_release
+/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_MAKE_PROGRAM=/home/marijn/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -D NDEBUG=1 -G Ninja -DPython_EXECUTABLE=/usr/local/bin/python3.10 -DPython3_EXECUTABLE=/usr/local/bin/python3.10 -S /home/marijn/Github/chess_bot -B /home/marijn/Github/chess_bot/build_release
 -- The C compiler identification is GNU 14.2.1
 -- The CXX compiler identification is GNU 14.2.1
 -- Detecting C compiler ABI info
@@ -11,11 +11,12 @@
 -- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
--- Configuring done (0.9s)
+-- Configuring done (0.6s)
 -- Generating done (0.0s)
 CMake Warning:
   Manually-specified variables were not used by the project:
 
+    NDEBUG
     Python3_EXECUTABLE
     Python_EXECUTABLE
 

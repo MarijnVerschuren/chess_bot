@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.27"
@@ -19,7 +19,7 @@
 					]
 				}
 			],
-			"name" : "Debug",
+			"name" : "Release",
 			"projects" : 
 			[
 				{
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "chess_bot::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-chess_bot-Debug-f44e83672389dcf0d4b0.json",
+					"jsonFile" : "target-chess_bot-Release-3114322654c450a6e384.json",
 					"name" : "chess_bot",
 					"projectIndex" : 0
 				}
@@ -49,7 +49,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/marijn/Github/chess_bot/build_debug",
+		"build" : "/home/marijn/Github/chess_bot/build_release",
 		"source" : "/home/marijn/Github/chess_bot"
 	},
 	"version" : 

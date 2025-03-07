@@ -50,8 +50,10 @@ public:
 
 	// move functions
 	_ND bool legal(const Move move)							const;
+	void move(const Move move);
 
 	// getters
+	_ND piece_t piece_on(uint8_t sq)						const;
 	_ND	bit_board_t king_blockers_g(color_t color)			const;
 	_ND	bit_board_t checkers_g(void)						const;
 	_ND	color_t side_to_move_g(void)						const;
@@ -64,6 +66,7 @@ public:
 
 
 	bit_board_t* psc() { return this->pieces; }
+	void print() const;
 
 private:
 	Board		board;
@@ -81,7 +84,7 @@ private:
 	color_t 	side_to_move	: 1;
 	castle_t	castle_rights	: 4;  // TODO
 
-	sq_t		en_passant_sq;	// TODO: use!
+	sq_t		en_passant_sq	: 6;	// TODO: use!
 };
 
 

@@ -1,0 +1,15 @@
+# ninja log v6
+3	52	1741342501901530194	CMakeFiles/chess_bot.dir/src/piece.cpp.o	3ba4eae103928771
+3	83	1741342501898196819	CMakeFiles/chess_bot.dir/src/board.cpp.o	5d6f1bb349f93a
+6	91	1741342501901530194	CMakeFiles/chess_bot.dir/src/magic.cpp.o	951fa9f772ba2100
+2	98	1741342501898196819	CMakeFiles/chess_bot.dir/src/main.cpp.o	da00e36dcc781025
+20	109	1741342501918197067	CMakeFiles/chess_bot.dir/src/move.cpp.o	c093dab3f1d7498b
+16	198	1741342501911530318	CMakeFiles/chess_bot.dir/src/search.cpp.o	2e2690becd401d15
+10	340	1741342501908196944	CMakeFiles/chess_bot.dir/src/position.cpp.o	f67f8cf871721b4d
+5	424	1741342501901530194	CMakeFiles/chess_bot.dir/src/magic_const.cpp.o	48c04a311fd95ddf
+6	710	1741342501901530194	CMakeFiles/chess_bot.dir/src/move_gen.cpp.o	656a2d8d29cc7b87
+710	756	1741342502608205643	chess_bot	a437b5ea1360da87
+1	164	1741342532368577852	CMakeFiles/chess_bot.dir/src/position.cpp.o	f67f8cf871721b4d
+164	202	1741342532531913241	chess_bot	a437b5ea1360da87
+0	177	1741342621793055192	CMakeFiles/chess_bot.dir/src/position.cpp.o	f67f8cf871721b4d
+177	224	1741342621973057530	chess_bot	a437b5ea1360da87

@@ -13,5 +13,6 @@ add_executable(chess_bot
     src/move_gen.cpp
     src/magic.cpp
     src/position.cpp
+    src/search.cpp
     src/move.cpp
 )

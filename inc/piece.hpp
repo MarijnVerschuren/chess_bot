@@ -18,6 +18,7 @@ typedef enum : uint8_t {
 	KING =		0b110U,
 
 	ALL =		0b111U,		// all pieces index
+	COL =		0b1000U,	// color mask
 
 	WHT =		0b0000U,	// white, all WHITE pieces index
 	BLK =		0b1000U		// black
@@ -30,8 +31,10 @@ enum color_t : uint8_t {
 };
 
 
-constexpr color_t operator!(color_t color)	{ return (color_t)(color ^ 0b1U); }
-constexpr int8_t pawn_push(color_t color)	{ return (int8_t)(8 * (1 - (color << 1))); }
+constexpr piece_t mk_piece(color_t c, piece_t p)	{ return (piece_t)(((!c) << 3) | p); }
+constexpr piece_t operator+(piece_t a, piece_t b)	{ return (piece_t)((uint8_t)a + (uint8_t)b); }
+constexpr color_t operator!(color_t color)			{ return (color_t)(color ^ 0b1U); }
+constexpr int8_t pawn_push(color_t color)			{ return (int8_t)(8 * (1 - (color << 1))); }
 
 extern const char* piece_names[16];
 
